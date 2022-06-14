@@ -1,6 +1,7 @@
 package fi.muni.courtreservation.startup;
 
 import fi.muni.courtreservation.court.CourtService;
+import fi.muni.courtreservation.registration.email.EmailService;
 import fi.muni.courtreservation.user.User;
 import fi.muni.courtreservation.user.UserRepository;
 import fi.muni.courtreservation.user.UserRole;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 
 /**
  * @author Radim Stejskal 514102
@@ -22,12 +26,12 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     private UserService userService;
     private CourtService courtService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailService emailSender;
 
     /**
-     * configure these fields yourself
+     * configure this field yourself
      */
     private final String adminEmail = "stejskalrad@gmail.com";
-    private final String adminPw = "password";
 
     /**
      * Creates an admin account after running the application for the first time, it is HIGHLY
@@ -36,8 +40,14 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
      */
     @Override
     public void run(String...args){
+        CharacterRule alphabets = new CharacterRule(EnglishCharacterData.Alphabetical);
+        CharacterRule digits = new CharacterRule(EnglishCharacterData.Digit);
+        PasswordGenerator passwordGenerator = new PasswordGenerator();
+        String password = passwordGenerator.generatePassword(6, alphabets, digits);
+        new Thread(() -> emailSender.send(adminEmail, password)).start();
+
         try {
-            String encodedPw = bCryptPasswordEncoder.encode(adminPw);
+            String encodedPw = bCryptPasswordEncoder.encode(password);
             User admin = new User("Radim",
                     "Stejskal",
                     adminEmail,
