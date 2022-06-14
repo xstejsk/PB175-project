@@ -38,7 +38,8 @@ public class RegistrationService {
                         UserRole.USER,
                         request.getEmail())
         );
-        String link = "http://localhost:8080/registration/confirm?token=" + token;
+        String link = "https://court-reservations-project.herokuapp.com/" +
+                "registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
     }
 
