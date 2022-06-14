@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <meta charset="ISO-8859-1">
+    <title>Reservation</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/index}">Home</a>
+            <a th:if="${userRole} == 'ADMIN'" class="navbar-brand" href="#">All users</a>
+            <a th:if="${userRole} == 'ADMIN'" class="navbar-brand" href="#"
+               th:href="@{/reservations/all}">All reservations</a>
+            <a th:if="${userRole} == 'ADMIN'" class="navbar-brand" th:href="@{/courts}">Courts</a>
+            <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+
+<div class="container my-2">
+    <div th:if="${param.isOngoing}">
+        <div class="alert alert-info" style="color: red">Cannot modify ongoing reservation</div>
+    </div>
+    <h1>My reservations</h1>
+    <a th:href="@{/reservations/showNewReservationForm}" class="btn btn-primary btn-sm mb-3"> Create reservation</a>
+    <table class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Court number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reservation: ${activeReservationsByUser}">
+                <td th:text=${reservation.id}></td>
+                <td th:text=${reservation.start}></td>
+                <td th:text=${reservation.ending}></td>
+                <td th:text=${reservation.courtId}></td>
+                <td><a th:href="@{/reservations/showFormForUpdate/{id}(id=${reservation.id})}"
+                       class="btn btn-primary">Change</a>
+                    <a th:href="@{/reservations/deleteReservation/{id}(id=${reservation.id})}"
+                       class="btn btn-danger">Cancel</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

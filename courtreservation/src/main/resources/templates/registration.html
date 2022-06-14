@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <meta charset="ISO-8859-1">
+    <title>Registration</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/index}">Home</a>
+            <a class="navbar-brand" href="#" th:href="@{/login}">Log in</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">Registration was successful</div>
+            </div>
+
+            <div th:if="${param.expired}">
+                <div class="alert alert-info" style="color: red">Token has expired, try to register again</div>
+            </div>
+
+            <div th:if="${param.confirmed}">
+                <div class="alert alert-info" style="color: red">Email is already confirmed, you can sign in</div>
+            </div>
+
+            <h1>Registration</h1>
+
+            <form th:action="@{/registration}" method="post" th:object="${registrationRequest}">
+                <div class="form-group">
+                    <label class="control-label" for="firstName"> First Name </label>
+                    <div th:if="${#fields.hasErrors('firstName')}" class="error" th:errors="*{firstName}"></div>
+                    <input id="firstName" class="form-control" th:field="*{firstName}"
+                           required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="lastName"> Last Name </label>
+                    <div th:if="${#fields.hasErrors('lastName')}" class="error" th:errors="*{lastName}"></div><input
+                        id="lastName" class="form-control" th:field="*{lastName}"
+                        required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="email"> Email </label>
+                    <div th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}"></div>
+                    <input
+                        id="email" class="form-control" th:field="*{email}" required
+                        autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password"> Password </label>
+                    <div th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}"></div>
+                    <input
+                        id="password" class="form-control" type="password" name="password"
+                        th:field="*{password}" required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label"> Confirm password </label>
+                    <input
+                            class="form-control" type="password" required autofocus="autofocus" name="confirmPassword"
+                            id="confirm_password"/><span id='message'></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Password matches').css('color', 'green');
+            } else
+                $('#message').html('Password does not match').css('color', 'red');
+        });
+    </script>
+</div>
+</body>
+</html>

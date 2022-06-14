@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <meta charset="ISO-8859-1">
+    <title>Reservations</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" th:href="@{/index}">Home</a>
+            <a th:if="${userRole} != 'ADMIN'" class="navbar-brand" href="#"
+               th:href="@{/reservations}">My reservations</a>
+            <a th:if="${userRole} == 'ADMIN'" class="navbar-brand" th:href="@{/reservations/all}">All reservations</a>
+            <a th:if="${userRole} == 'ADMIN'" class="navbar-brand" th:href="@{/reservations/all}">All users</a>
+            <a th:if="${userRole} == 'ADMIN'" class="navbar-brand" th:href="@{/courts}">Courts</a>
+            <a class="navbar-brand" href="#" th:href="@{/logout}">Log out</a>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+<div class="container">
+
+    <h2>Update reservation</h2>
+
+
+    <form action="#" th:action="@{/reservations/updateReservation}" th:object="${reservationToUpdate}"
+          method="POST">
+        <div th:if="${#fields.hasErrors('start')}" class="error" th:errors="${reservationToUpdate.start}"></div>
+        <div><span id='dateWarning'></span></div>
+        <label class="control-label" for="startDate"> Date </label>
+        <input id="startDate" required
+               autofocus="autofocus" type="date" th:field="${reservationToUpdate.startDate}"
+               placeholder="Start" class="form-control mb-4 col-4">
+
+        <label class="control-label" for="startHrs"> At </label>
+        <select id="startHrs" required
+                autofocus="autofocus" type="number" th:field="${reservationToUpdate.startHrs}"
+                placeholder="Start" class="form-control mb-4 col-4">
+            <option th:each="i : ${#numbers.sequence(8, 17)}" th:value="${i}" th:text="${i}" ></option>
+
+        </select>
+
+        <label class="control-label" for="duration"> Duration hrs </label>
+        <input id="duration" required
+               autofocus="autofocus" type="number" th:field="${reservation.durationHrs}"
+               placeholder="duration (hrs)" class="form-control mb-4 col-4" min="1" max="2">
+
+        <button type="submit" class="btn btn-info col-2" id="submitButton"> Confirm reservation</button>
+        <span id='durationWarning'></span>
+    </form>
+
+    <hr>
+
+    <a th:href = "@{/reservations}"> View my reservations</a>
+    <script src="/javascript/reservationFormValidation.js"></script>
+</div>
+</body>
+</html>
