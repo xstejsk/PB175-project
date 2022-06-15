@@ -187,8 +187,10 @@ public class ReservationController {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         UserDetails user = userService.loadUserByUsername(userName);
         reservationService.deleteReservation(id, (User) user);
-
-        return "redirect:/reservations";
+        if (((User) user).getUserRole() == UserRole.USER){
+            return "redirect:/reservations";
+        }
+        return "redirect:/reservations/all";
     }
 }
 
