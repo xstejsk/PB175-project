@@ -134,7 +134,7 @@ public class ReservationService {
         if (!courtService.existsById(id)){
             throw new IllegalStateException("court with given id " + id + "does not exist");
         }
-        reservationRepository.deleteById(id);
+        reservationRepository.deleteAllByCourtId(id);
     }
 
     /**
