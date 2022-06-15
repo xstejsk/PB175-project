@@ -23,6 +23,10 @@ public class RegistrationService {
     private final UserService userService;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
+
+    /**
+     * Edit this field yourself
+     */
     private final String host = "https://court-reservations-project.herokuapp.com";
 
     /**

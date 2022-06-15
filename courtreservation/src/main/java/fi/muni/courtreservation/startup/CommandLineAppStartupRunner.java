@@ -48,14 +48,14 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
         try {
             String encodedPw = bCryptPasswordEncoder.encode(password);
-            User admin = new User("Radim",
-                    "Stejskal",
+            User admin = new User("Admin",
+                    "",
                     adminEmail,
                     encodedPw,
                     UserRole.ADMIN,
                     adminEmail);
             userRepository.save(admin);
-            userService.enableUser("stejskalrad@gmail.com");
+            userService.enableUser(adminEmail);
             courtService.addCourts(3);
         }catch (Exception ignored){
 
