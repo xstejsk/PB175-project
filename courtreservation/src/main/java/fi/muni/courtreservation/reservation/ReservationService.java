@@ -30,7 +30,7 @@ public class ReservationService {
     private Clock clock;
     private final ReservationRepository reservationRepository;
     private final CourtService courtService;
-    private static final int PAGE_SIZE = 15;
+    private static final int PAGE_SIZE = 10;
     private static final int OPENING_HOUR = 8;
     private static final int CLOSING_HOUR = 18;
     private static final Integer[] ALLOWED_DURATIONS = new Integer[]{1, 2};
