@@ -7,12 +7,12 @@ spring:
   application:
     name: courtreservation
   datasource:
-    password: 20radas00
-    url: jdbc:postgresql://localhost:5432/userlogin
-    username: postgres
+    password: b53846cef246b8950986ea443ad2c7c0bbbf99d73b249dce2ad456051fd2f3d9
+    url: jdbc:postgresql://ec2-52-30-159-47.eu-west-1.compute.amazonaws.com:5432/dclrlabpdbs3m
+    username: mairbbbohmvvut
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

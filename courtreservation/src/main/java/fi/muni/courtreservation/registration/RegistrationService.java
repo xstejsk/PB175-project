@@ -25,6 +25,11 @@ public class RegistrationService {
     private final EmailSender emailSender;
 
     /**
+     * Edit this field yourself
+     */
+    private final String host = "https://court-reservations-project.herokuapp.com";
+
+    /**
      * Creates a new User with the user details contained in the RegistrationRequest parameter,
      * and sends a confirmation email to the newly created user
      * @param request Registration request containing registration details such as username etc.
@@ -38,7 +43,7 @@ public class RegistrationService {
                         UserRole.USER,
                         request.getEmail())
         );
-        String link = "http://localhost:8080/registration/confirm?token=" + token;
+        String link = host + "/registration/confirm?token=" + token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
     }
 
