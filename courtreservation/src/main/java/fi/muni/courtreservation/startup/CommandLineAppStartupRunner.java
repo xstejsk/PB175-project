@@ -49,7 +49,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         try {
             String encodedPw = bCryptPasswordEncoder.encode(password);
             User admin = new User("Admin",
-                    "",
+                    "Admin",
                     adminEmail,
                     encodedPw,
                     UserRole.ADMIN,
