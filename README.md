@@ -23,7 +23,11 @@ You can also refer to the following ERD Diagram.
 
 ## Installation:
 Edit src/main/resources/application.yml and configure your own database and email client to send verification emails
+
 Edit src/main/java/fi/muni/courtreservation/startup/CommandLineAppStartupRunner.java and set the adminEmail field to the email address which you will use to log in as an administrator.
+
 After running the app you will receive an email with the password
+
 Edit src/main/java/fi/muni/courtreservation/registration/RegistrationService.java and set the host field to your hosting domain
+
 Upload the .jar file to your favorite hosting provider
