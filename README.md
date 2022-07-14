@@ -4,11 +4,11 @@ System to create and manage reservations of tennis courts.
 
 Functionality is described by the following Use Case Diagram.
 
-![Use Case Diagram](https://drive.google.com/uc?export=view&id=1c_cR1_JaBt25sr5_tItMfEhxBDkt8g92)
+![Use Case Diagram](https://drive.google.com/uc?export=view&id=1y7SAjTamDN5u9RGpYHToWVSvL4-U018L)
 
 You can also refer to the following ERD Diagram.
 
-![Entity Relationship Diagram](https://drive.google.com/uc?export=view&id=1y7SAjTamDN5u9RGpYHToWVSvL4-U018L)
+![Entity Relationship Diagram](https://drive.google.com/uc?export=view&id=1c_cR1_JaBt25sr5_tItMfEhxBDkt8g92)
 
 # Tech stack
 
